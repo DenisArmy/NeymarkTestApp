@@ -1,0 +1,20 @@
+project(constants VERSION 1.0.0 LANGUAGES CXX)
+include(GNUInstallDirs)
+
+set(CONST_LIB_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include)
+set(CONST_LIB_SOURCE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src)
+
+file(GLOB CONST_LIB_HEADERS ${CONST_LIB_INCLUDE_DIR}/*.h)
+file(GLOB CONST_LIB_SOURCE ${CONST_LIB_SOURCE_DIR}/*.cpp)
+
+message(${PROJECT_NAME})
+add_library(${PROJECT_NAME} SHARED ${CONST_LIB_SOURCE})
+
+target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_11)
+target_compile_options(${PROJECT_NAME} PRIVATE "-Wall")
+
+target_include_directories(${PROJECT_NAME} PUBLIC ${CONST_LIB_INCLUDE_DIR})
+
+set_target_properties(${PROJECT_NAME} PROPERTIES VERSION ${PROJECT_VERSION})
+
+install(TARGETS ${PROJECT_NAME} DESTINATION ${CMAKE_INSTALL_LIBDIR})
